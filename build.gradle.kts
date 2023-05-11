@@ -74,6 +74,6 @@ sonar {
 		property("sonar.host.url", "https://sonarcloud.io")
 		property("sonar.organization", "io-jonathanlee")
 		property("sonar.projectKey", "io-jonathanlee_sparrow-express-api-kotlin")
-		property("sonar.exclusions", "**/SparrowExpressApiApplication.java,**/*Config.java,**/*Model.java,**/*Dto.java,**/*Exception.java")
+		property("sonar.exclusions", "**/SparrowExpressApiKotlinApplication.kt,**/*Config.kt,**/*Model.kt,**/*Dto.kt,**/*Exception.kt")
 	}
 }
