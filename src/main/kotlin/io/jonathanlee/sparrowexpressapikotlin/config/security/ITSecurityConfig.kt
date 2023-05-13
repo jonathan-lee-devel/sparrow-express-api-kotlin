@@ -1,4 +1,4 @@
-package io.jonathanlee.sparrowexpressapikotlin.config
+package io.jonathanlee.sparrowexpressapikotlin.config.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
@@ -7,8 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.web.SecurityFilterChain
 
-@Profile("integration")
 @EnableWebSecurity
+@Profile("integration")
 class ITSecurityConfig {
 
   @Bean

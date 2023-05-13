@@ -6,6 +6,7 @@ plugins {
 	jacoco
 	id("org.sonarqube") version "3.5.0.2730"
 	kotlin("jvm") version "1.7.22"
+	kotlin("kapt") version "1.5.10"
 	kotlin("plugin.spring") version "1.7.22"
 }
 
@@ -29,13 +30,19 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
-	implementation("org.mapstruct:mapstruct:1.5.4.Final")
+	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	compileOnly("org.mapstruct:mapstruct-processor:1.5.4.Final")
+	kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.4.Final")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+}
+
+kapt {
+	arguments {
+		arg("mapstruct.defaultComponentModel", "spring")
+	}
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,7 +1,7 @@
 package io.jonathanlee.sparrowexpressapikotlin.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.jonathanlee.sparrowexpressapikotlin.config.ITSecurityConfig
+import io.jonathanlee.sparrowexpressapikotlin.config.security.ITSecurityConfig
 import io.jonathanlee.sparrowexpressapikotlin.dto.RequestDto
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

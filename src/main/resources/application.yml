@@ -1,1 +1,26 @@
-
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+  data:
+    mongodb:
+      uri: ${DATABASE_URI}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+sparrow:
+  environment:
+    frontEndHost: http://localhost:4200
+    googleLoginHost: https://accounts.google.com
