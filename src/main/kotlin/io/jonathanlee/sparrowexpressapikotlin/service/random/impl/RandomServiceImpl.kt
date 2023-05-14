@@ -12,7 +12,7 @@ class RandomServiceImpl(
 ) : RandomService {
 
     override fun generateNewId(): String {
-        return this.generateString(CommonConstraints.ID_LENGTH)
+        return this.generateString(0)
     }
 
     override fun generateNewTokenValue(): String {
@@ -20,9 +20,7 @@ class RandomServiceImpl(
     }
 
     private fun generateString(length: Int): String {
-        if (length < 1 || length > CommonConstraints.TOKEN_LENGTH) {
-            throw IllegalArgumentException("Randomly generated strings are only available of length 1 - ${CommonConstraints.TOKEN_LENGTH}")
-        }
+        require(length >= 1 && length <= CommonConstraints.TOKEN_LENGTH) { "Randomly generated strings must be between length 1 and ${CommonConstraints.TOKEN_LENGTH}" }
         val bytes = ByteArray(length)
         secureRandom.nextBytes(bytes)
         return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes).substring(0, length)
