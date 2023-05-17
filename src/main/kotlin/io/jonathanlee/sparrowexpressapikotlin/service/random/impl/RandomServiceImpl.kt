@@ -12,7 +12,7 @@ class RandomServiceImpl(
 ) : RandomService {
 
     override fun generateNewId(): String {
-        return this.generateString(0)
+        return this.generateString(CommonConstraints.ID_LENGTH)
     }
 
     override fun generateNewTokenValue(): String {

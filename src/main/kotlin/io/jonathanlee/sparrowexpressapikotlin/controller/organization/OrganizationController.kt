@@ -1,5 +1,6 @@
 package io.jonathanlee.sparrowexpressapikotlin.controller.organization
 
+import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationRequestDto
 import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationResponseDto
 import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationSnippetResponseDto
 import io.jonathanlee.sparrowexpressapikotlin.service.organization.OrganizationService
@@ -9,10 +10,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/organizations")
@@ -48,6 +47,24 @@ class OrganizationController(
         val organizationSnippetResponseDto = this.organizationService.getOrganizationSnippetById(organizationId)
             ?: return ResponseEntity.internalServerError().build()
         return ResponseEntity.status(organizationSnippetResponseDto.httpStatus).body(organizationSnippetResponseDto)
+    }
+
+    @PostMapping(
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun createOrganization(
+        oAuth2AuthenticationToken: OAuth2AuthenticationToken?,
+        @Validated @RequestBody organizationRequestDto: OrganizationRequestDto
+    ): ResponseEntity<OrganizationResponseDto> {
+        if (OAuth2ClientUtils.isUnauthenticated(oAuth2AuthenticationToken, this.activeProfileService)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
+        val requestingUserEmail = OAuth2ClientUtils.getRequestingUserEmail(oAuth2AuthenticationToken, this.activeProfileService)
+            ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        val organizationResponseDto = this.organizationService.createOrganization(requestingUserEmail, organizationRequestDto)
+            ?: return ResponseEntity.internalServerError().build()
+        return ResponseEntity.status(organizationResponseDto.httpStatus).body(organizationResponseDto)
     }
 
 }

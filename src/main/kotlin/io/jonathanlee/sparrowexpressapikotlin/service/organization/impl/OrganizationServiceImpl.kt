@@ -64,15 +64,16 @@ class OrganizationServiceImpl(
         requestingUserEmail: String,
         organizationRequestDto: OrganizationRequestDto
     ): OrganizationResponseDto? {
-        val organizationModel = this.organizationMapper.organizationRequestDtoToOrganizationModel(organizationRequestDto)
-            ?: return getEmptyOrganizationResponseDto()
-        organizationModel.id = this.randomService.generateNewId()
-        organizationModel.administratorEmails = ListUtil.removeDuplicatesFromList(organizationModel.administratorEmails)
-        organizationModel.memberEmails = ListUtil.removeDuplicatesFromList(organizationModel.memberEmails)
+        val organizationModel = OrganizationModel(
+            ObjectId.get(),
+            this.randomService.generateNewId(),
+            organizationRequestDto.name,
+            ListUtil.removeDuplicatesFromList(organizationRequestDto.administratorEmails),
+            ListUtil.removeDuplicatesFromList(organizationRequestDto.memberEmails)
+        )
         if (!organizationModel.administratorEmails.contains(requestingUserEmail)) {
             organizationModel.administratorEmails.add(requestingUserEmail)
         }
-        organizationModel.objectId = ObjectId.get()
         val organizationResponseDto = this.organizationMapper.organizationModelToOrganizationResponseDto(
             this.organizationRepository.save(organizationModel)
         ) ?: return getEmptyOrganizationResponseDto()
@@ -169,7 +170,7 @@ class OrganizationServiceImpl(
         organizationModel: OrganizationModel?,
         requestingUserEmail: String
     ): Boolean {
-        return organizationModel?.administratorEmails?.contains(requestingUserEmail) ?: true
+        return (organizationModel?.administratorEmails?.contains(requestingUserEmail) == false)
     }
 
     private fun isOrganizationMember(
