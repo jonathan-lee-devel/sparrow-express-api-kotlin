@@ -6,9 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "organizations")
 data class OrganizationModel(
-    @field:Id val objectId: ObjectId,
-    val id: String,
+    @field:Id var objectId: ObjectId,
+    var id: String,
     val name: String,
-    val administratorEmails: List<String>,
-    val memberEmails: List<String>,
+    var administratorEmails: MutableList<String>,
+    var memberEmails: MutableList<String>,
 )

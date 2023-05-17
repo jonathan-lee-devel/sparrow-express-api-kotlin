@@ -19,9 +19,9 @@ class RestExceptionHandler: ResponseEntityExceptionHandler() {
 
     override fun handleMethodArgumentNotValid(exception: MethodArgumentNotValidException, headers: HttpHeaders, status: HttpStatusCode, request: WebRequest
     ): ResponseEntity<Any>? {
-        val errors = exception.bindingResult.fieldErrors.parallelStream().map { ValidationErrorDto(it.field, it.defaultMessage!!) }.toList()
-        val validationErrorsContainerDto = ValidationErrorsContainerDto(errors)
-        return ResponseEntity.status(status).body(validationErrorsContainerDto)
+        return ResponseEntity
+            .status(status)
+            .body(ValidationErrorsContainerDto(exception.bindingResult.fieldErrors.parallelStream().map { ValidationErrorDto(it.field, it.defaultMessage!!) }.toList()))
     }
 
     @ExceptionHandler(BadRequestException::class)

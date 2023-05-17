@@ -124,5 +124,6 @@ class SecurityProductionConfig(
     companion object {
         private const val COOKIE_NAME_TO_CLEAR = "JSESSIONID"
     }
+
 }
 
