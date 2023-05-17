@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -79,6 +80,41 @@ class IndexControllerIT {
             ]
         }
         """.trimIndent()))
+    }
+
+    @Test
+    fun `Given valid request body, when GET to missing-field URL, then return 400 Bad Request with errors response body`() {
+        // When
+        val result = mockMvc.perform(get("/missing-field"))
+
+        // Then
+        result
+            .andExpect(status().isBadRequest)
+            .andExpect(content().json("""
+            {
+                  "errors": [
+                  {
+                    "field": "any",
+                    "message": "This field is missing"
+                  }
+                ]
+            }
+            """.trimIndent()))
+    }
+
+    @Test
+    fun `Given valid request body, when GET to bad-request URL, then return 400 Bad Request with errors response body`() {
+        // When
+        val result = mockMvc.perform(get("/bad-request"))
+
+        // Then
+        result
+            .andExpect(status().isBadRequest)
+            .andExpect(content().json("""
+            {
+                "error": "No field is missing but the request is bad"
+            }
+            """.trimIndent()))
     }
 
 }
