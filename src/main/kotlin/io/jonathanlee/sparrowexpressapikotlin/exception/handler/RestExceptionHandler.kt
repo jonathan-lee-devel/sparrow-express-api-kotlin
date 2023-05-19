@@ -2,6 +2,7 @@ package io.jonathanlee.sparrowexpressapikotlin.exception.handler
 
 import io.jonathanlee.sparrowexpressapikotlin.exception.BadRequestException
 import io.jonathanlee.sparrowexpressapikotlin.validation.dto.ErrorDto
+import io.jonathanlee.sparrowexpressapikotlin.validation.dto.ErrorsContainerDto
 import io.jonathanlee.sparrowexpressapikotlin.validation.dto.ValidationErrorDto
 import io.jonathanlee.sparrowexpressapikotlin.validation.dto.ValidationErrorsContainerDto
 import org.springframework.http.HttpHeaders
@@ -31,7 +32,7 @@ class RestExceptionHandler: ResponseEntityExceptionHandler() {
         if (field != null) {
             validationErrorsContainerDto = ValidationErrorsContainerDto(listOf(ValidationErrorDto(field, message)))
         }
-        return handleExceptionInternal(exception, validationErrorsContainerDto ?: ErrorDto(message), HttpHeaders(), HttpStatus.BAD_REQUEST, request)
+        return handleExceptionInternal(exception, validationErrorsContainerDto ?: ErrorsContainerDto(listOf(ErrorDto(message))), HttpHeaders(), HttpStatus.BAD_REQUEST, request)
     }
 
 }

@@ -1,7 +1,7 @@
 package io.jonathanlee.sparrowexpressapikotlin.validation.dto
 
 
-data class ValidationErrorDto(
+class ValidationErrorDto(
     val field: String,
-    val message: String
+    val message: String,
 )
