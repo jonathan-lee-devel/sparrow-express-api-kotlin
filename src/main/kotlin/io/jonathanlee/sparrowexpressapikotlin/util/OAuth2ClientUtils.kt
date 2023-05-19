@@ -6,8 +6,6 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 
 object OAuth2ClientUtils {
 
-    const val NAME_ATTRIBUTE = "name"
-
     private const val EMAIL_ATTRIBUTE = "email"
 
     private const val DEFAULT_LOCAL_EMAIL = "test@example.com"

@@ -100,6 +100,9 @@ class OrganizationServiceImpl(
         if (!organizationModel.administratorEmails.contains(administratorEmailToRemove)) {
             throw BadRequestException(ADMINISTRATOR_EMAIL_TO_REMOVE, "$administratorEmailToRemove is not an administrator of organization with ID: $organizationId")
         }
+        if (organizationModel.administratorEmails.size <= 1) {
+            throw BadRequestException(ADMINISTRATOR_EMAIL_TO_REMOVE, "$administratorEmailToRemove is the last remaining administrator of organization with ID: $organizationId")
+        }
         organizationModel.administratorEmails.remove(administratorEmailToRemove)
         val organizationResponseDto = this.organizationMapper.organizationModelToOrganizationResponseDto(
             this.organizationRepository.save(organizationModel)
