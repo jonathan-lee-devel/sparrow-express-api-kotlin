@@ -112,7 +112,11 @@ class IndexControllerIT {
             .andExpect(status().isBadRequest)
             .andExpect(content().json("""
             {
-                "error": "No field is missing but the request is bad"
+                  "errors": [
+                  {
+                    "message": "No field is missing but the request is bad"
+                  }
+                ]
             }
             """.trimIndent()))
     }
