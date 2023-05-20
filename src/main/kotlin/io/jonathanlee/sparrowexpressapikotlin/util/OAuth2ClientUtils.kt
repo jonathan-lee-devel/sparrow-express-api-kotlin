@@ -35,4 +35,3 @@ object OAuth2ClientUtils {
         return isNoAuthentication && !activeProfileService.isLocalActiveProfile()
     }
 }
-
