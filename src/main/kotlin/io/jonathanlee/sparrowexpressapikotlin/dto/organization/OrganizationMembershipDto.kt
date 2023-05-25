@@ -1,0 +1,7 @@
+package io.jonathanlee.sparrowexpressapikotlin.dto.organization
+
+import io.jonathanlee.sparrowexpressapikotlin.dto.ResponseDto
+import io.jonathanlee.sparrowexpressapikotlin.enums.organization.OrganizationMembershipStatus
+import org.springframework.http.HttpStatus
+
+data class OrganizationMembershipDto(val status: OrganizationMembershipStatus): ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR)
