@@ -1,7 +1,6 @@
 package io.jonathanlee.sparrowexpressapikotlin.service.organization.impl
 
 import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationMembershipDto
-import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationMembershipRequestDto
 import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationMembershipRequestsContainerDto
 import io.jonathanlee.sparrowexpressapikotlin.enums.organization.OrganizationMembershipStatus
 import io.jonathanlee.sparrowexpressapikotlin.exception.BadRequestException
@@ -82,14 +81,15 @@ class OrganizationMembershipRequestServiceImpl(
 
     override fun approveRequestToJoinOrganization(
         requestingUserEmail: String,
-        organizationMembershipRequestDto: OrganizationMembershipRequestDto,
+        organizationMembershipRequestId: String,
     ): OrganizationMembershipDto? {
-        logger.info("Request for $requestingUserEmail to approve organization membership request with ID: ${organizationMembershipRequestDto.id}")
-        val organizationMembershipRequestModel = this.organizationMembershipRequestRepository.findById(organizationMembershipRequestDto.id)
+        logger.info("Request for $requestingUserEmail to approve organization membership request with ID: $organizationMembershipRequestId")
+        val organizationMembershipRequestModel = this.organizationMembershipRequestRepository.findById(organizationMembershipRequestId)
             ?: return getOrganizationMembershipDto(OrganizationMembershipStatus.NOT_FOUND, HttpStatus.NOT_FOUND)
         val organizationModel = this.organizationRepository.findById(organizationMembershipRequestModel.organizationId)
         if (organizationModel == null) {
-            logger.error("Organization membership request with ID: ${organizationMembershipRequestDto.id} references non-existent organization with ID: ${organizationMembershipRequestModel.organizationId}")
+            logger.error("Organization membership request with ID: $organizationMembershipRequestId references non-existent organization with ID: ${organizationMembershipRequestModel.organizationId}")
+            logger.error("Organization membership request with ID: $organizationMembershipRequestId references non-existent organization with ID: ${organizationMembershipRequestModel.organizationId}")
             return OrganizationMembershipDto(OrganizationMembershipStatus.FAILURE) // Return 500 internal server error
         }
         if (!organizationModel.administratorEmails.contains(requestingUserEmail)) {

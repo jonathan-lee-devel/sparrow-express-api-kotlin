@@ -259,7 +259,7 @@ class OrganizationMembershipRequestServiceImplTest {
         `when`(organizationMembershipRequestRepository.findById(organizationMembershipRequestId)).thenReturn(null)
 
         // Act
-        val result = service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestDto)
+        val result = service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestId)
 
         // Assert
         assertEquals(OrganizationMembershipStatus.NOT_FOUND, result?.status)
@@ -272,7 +272,6 @@ class OrganizationMembershipRequestServiceImplTest {
         val organizationMembershipRequestId = "12345"
         val requestingUserEmail = "requesting@example.com"
         val organizationId = "12345"
-        val organizationMembershipRequestDto = OrganizationMembershipRequestDto(organizationMembershipRequestId)
 
         val organizationMembershipRequestModel = OrganizationMembershipRequestModel(ObjectId.get(), organizationMembershipRequestId, organizationId, requestingUserEmail, false, null)
         `when`(organizationMembershipRequestRepository.findById(organizationMembershipRequestId)).thenReturn(organizationMembershipRequestModel)
@@ -280,7 +279,7 @@ class OrganizationMembershipRequestServiceImplTest {
         `when`(organizationRepository.findById(organizationId)).thenReturn(null)
 
         // Act
-        val result = service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestDto)
+        val result = service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestId)
 
         // Assert
         assertEquals(OrganizationMembershipStatus.FAILURE, result?.status)
@@ -293,7 +292,6 @@ class OrganizationMembershipRequestServiceImplTest {
         val organizationMembershipRequestId = "12345"
         val requestingUserEmail = "requesting@example.com"
         val organizationId = "12345"
-        val organizationMembershipRequestDto = OrganizationMembershipRequestDto(organizationMembershipRequestId)
 
         val organizationMembershipRequestModel = OrganizationMembershipRequestModel(ObjectId.get(), organizationMembershipRequestId, organizationId, requestingUserEmail, false, null)
         `when`(organizationMembershipRequestRepository.findById(organizationMembershipRequestId)).thenReturn(organizationMembershipRequestModel)
@@ -302,7 +300,7 @@ class OrganizationMembershipRequestServiceImplTest {
         `when`(organizationRepository.findById(organizationId)).thenReturn(organizationModel)
 
         // Act
-        val result = service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestDto)
+        val result = service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestId)
 
         // Assert
         assertEquals(OrganizationMembershipStatus.FORBIDDEN, result?.status)
@@ -315,7 +313,6 @@ class OrganizationMembershipRequestServiceImplTest {
         val organizationMembershipRequestId = "12345"
         val requestingUserEmail = "requesting@example.com"
         val organizationId = "12345"
-        val organizationMembershipRequestDto = OrganizationMembershipRequestDto(organizationMembershipRequestId)
 
         val organizationMembershipRequestModel = OrganizationMembershipRequestModel(ObjectId.get(), organizationMembershipRequestId, organizationId, requestingUserEmail, false, null)
         `when`(organizationMembershipRequestRepository.findById(organizationMembershipRequestId)).thenReturn(organizationMembershipRequestModel)
@@ -325,7 +322,7 @@ class OrganizationMembershipRequestServiceImplTest {
 
         try {
             // Act
-            service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestDto)
+            service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestId)
         } catch (exception: BadRequestException) {
             // Assert
             assertEquals("Requesting User E-mail", exception.field)
@@ -339,7 +336,6 @@ class OrganizationMembershipRequestServiceImplTest {
         val organizationMembershipRequestId = "12345"
         val requestingUserEmail = "requesting@example.com"
         val organizationId = "12345"
-        val organizationMembershipRequestDto = OrganizationMembershipRequestDto(organizationMembershipRequestId)
 
         val organizationMembershipRequestModel = OrganizationMembershipRequestModel(ObjectId.get(), organizationMembershipRequestId, organizationId, requestingUserEmail, false, null)
         `when`(organizationMembershipRequestRepository.findById(organizationMembershipRequestId)).thenReturn(organizationMembershipRequestModel)
@@ -348,7 +344,7 @@ class OrganizationMembershipRequestServiceImplTest {
         `when`(organizationRepository.findById(organizationId)).thenReturn(organizationModel)
 
         // Act
-        val result = service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestDto)
+        val result = service.approveRequestToJoinOrganization(requestingUserEmail, organizationMembershipRequestId)
 
         // Assert
         assertEquals(mutableListOf(requestingUserEmail), organizationModel.memberEmails)

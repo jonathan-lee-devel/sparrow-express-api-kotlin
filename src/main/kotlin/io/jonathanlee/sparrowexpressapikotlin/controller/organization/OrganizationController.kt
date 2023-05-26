@@ -82,7 +82,7 @@ class OrganizationController(
         }
         val requestingUserEmail = OAuth2ClientUtils.getRequestingUserEmail(oAuth2AuthenticationToken, this.activeProfileService)
             ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-        val organizationResponseDto = this.organizationService.removeOrganizationAdministrator(requestingUserEmail, organizationEmailRequestDto.organizationId, organizationEmailRequestDto.updatedEmail)
+        val organizationResponseDto = this.organizationService.removeOrganizationAdministrator(requestingUserEmail, organizationEmailRequestDto.organizationId, organizationEmailRequestDto.email)
             ?: return ResponseEntity.internalServerError().build()
         return ResponseEntity.status(organizationResponseDto.httpStatus).body(organizationResponseDto)
     }
@@ -101,7 +101,7 @@ class OrganizationController(
         }
         val requestingUserEmail = OAuth2ClientUtils.getRequestingUserEmail(oAuth2AuthenticationToken, this.activeProfileService)
             ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-        val organizationResponseDto = this.organizationService.removeOrganizationMember(requestingUserEmail, organizationEmailRequestDto.organizationId, organizationEmailRequestDto.updatedEmail)
+        val organizationResponseDto = this.organizationService.removeOrganizationMember(requestingUserEmail, organizationEmailRequestDto.organizationId, organizationEmailRequestDto.email)
             ?: return ResponseEntity.internalServerError().build()
         return ResponseEntity.status(organizationResponseDto.httpStatus).body(organizationResponseDto)
     }
@@ -120,7 +120,7 @@ class OrganizationController(
         }
         val requestingUserEmail = OAuth2ClientUtils.getRequestingUserEmail(oAuth2AuthenticationToken, this.activeProfileService)
             ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-        val organizationResponseDto = this.organizationService.updateOrganizationAdministratorToJoinAsMember(requestingUserEmail, organizationEmailRequestDto.organizationId, organizationEmailRequestDto.updatedEmail)
+        val organizationResponseDto = this.organizationService.updateOrganizationAdministratorToJoinAsMember(requestingUserEmail, organizationEmailRequestDto.organizationId, organizationEmailRequestDto.email)
             ?: return ResponseEntity.internalServerError().build()
         return ResponseEntity.status(organizationResponseDto.httpStatus).body(organizationResponseDto)
     }

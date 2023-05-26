@@ -1,7 +1,6 @@
 package io.jonathanlee.sparrowexpressapikotlin.service.organization
 
 import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationMembershipDto
-import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationMembershipRequestDto
 import io.jonathanlee.sparrowexpressapikotlin.dto.organization.OrganizationMembershipRequestsContainerDto
 
 interface OrganizationMembershipRequestService {
@@ -10,6 +9,6 @@ interface OrganizationMembershipRequestService {
 
     fun getRequestsToJoinOrganization(requestingUserEmail: String, organizationId: String): OrganizationMembershipRequestsContainerDto?
 
-    fun approveRequestToJoinOrganization(requestingUserEmail: String, organizationMembershipRequestDto: OrganizationMembershipRequestDto): OrganizationMembershipDto?
+    fun approveRequestToJoinOrganization(requestingUserEmail: String, organizationMembershipRequestId: String): OrganizationMembershipDto?
 
 }

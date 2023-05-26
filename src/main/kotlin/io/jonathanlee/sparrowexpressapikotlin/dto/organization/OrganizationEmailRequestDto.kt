@@ -7,5 +7,5 @@ import jakarta.validation.constraints.Size
 
 data class OrganizationEmailRequestDto(
     @field:NotNull @field:Size(min = CommonConstraints.ID_LENGTH, max = CommonConstraints.ID_LENGTH) val organizationId: String,
-    @field:NotNull @field:Email val updatedEmail: String,
+    @field:NotNull @field:Email val email: String,
 )
