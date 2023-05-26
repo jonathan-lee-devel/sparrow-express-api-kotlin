@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/")
 class IndexController {
 
+    @GetMapping
+    fun greeting(): ResponseEntity<Any> {
+        return ResponseEntity.ok("""{
+            "greeting": "Greetings!"
+        }""".trimIndent())
+    }
+
     @PostMapping
     fun index(@Validated @RequestBody body: RequestDto): ResponseEntity<RequestDto> {
         return ResponseEntity.ok(body)
