@@ -14,6 +14,7 @@ services:
     ports:
       - '8080:8080'
     environment:
+      SPRING_PROFILES_ACTIVE: production
       DATABASE_URI: $DATABASE_URI
       GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID
       GOOGLE_CLIENT_SECRET: $GOOGLE_CLIENT_SECRET
