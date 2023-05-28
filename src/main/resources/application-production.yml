@@ -1,12 +1,10 @@
-server:
-  ssl:
-    enabled: true
-    certificate: /etc/letsencrypt/live/api.sparrow.express/fullchain.pem
-    certificate-private-key: /etc/letsencrypt/live/api.sparrow.express/privkey.pem
 spring:
   security:
     oauth2:
       client:
+        pre-established-redirect-uri: https://api.sparrow.express/login
+        registered-redirect-uri: https://api.sparrow.express/login
+        use-current-uri: false
         registration:
           google:
             client-id: ${GOOGLE_CLIENT_ID}

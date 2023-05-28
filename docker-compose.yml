@@ -15,13 +15,8 @@ services:
       - '8080:8080'
     environment:
       SPRING_PROFILES_ACTIVE: production
-      SERVER_CERT_PATH: $SERVER_CERT_PATH
-      SERVER_KEY_PATH: $SERVER_KEY_PATH
       DATABASE_URI: $DATABASE_URI
       GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID
       GOOGLE_CLIENT_SECRET: $GOOGLE_CLIENT_SECRET
       MAIL_USERNAME: $MAIL_USERNAME
       MAIL_PASSWORD: $MAIL_PASSWORD
-    volumes:
-      - ${SERVER_CERT_PATH}:/etc/letsencrypt/live/api.sparrow.express/fullchain.pem
-      - ${SERVER_KEY_PATH}:/etc/letsencrypt/live/api.sparrow.express/privkey.pem
