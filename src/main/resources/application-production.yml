@@ -2,13 +2,11 @@ spring:
   security:
     oauth2:
       client:
-        pre-established-redirect-uri: https://api.sparrow.express/login
-        registered-redirect-uri: https://api.sparrow.express/login
-        use-current-uri: false
         registration:
           google:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: https://api.sparrow.express/login/oauth2/code/google
   data:
     mongodb:
       uri: ${DATABASE_URI}
