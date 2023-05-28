@@ -1,3 +1,8 @@
+server:
+  ssl:
+    enabled: true
+    certificate: ${SERVER_CERT_PATH}
+    certificate-private-key: ${SERVER_KEY_PATH}
 spring:
   security:
     oauth2:
