@@ -23,5 +23,5 @@ spring:
             enable: true
 sparrow:
   environment:
-    frontEndHost: http://localhost:4200
+    frontEndHost: https://sparrow.express
     googleLoginHost: https://accounts.google.com
