@@ -1,8 +1,8 @@
 server:
   ssl:
     enabled: true
-    certificate: ${SERVER_CERT_PATH}
-    certificate-private-key: ${SERVER_KEY_PATH}
+    certificate: /etc/letsencrypt/live/api.sparrow.express/fullchain.pem
+    certificate-private-key: /etc/letsencrypt/live/api.sparrow.express/privkey.pem
 spring:
   security:
     oauth2:

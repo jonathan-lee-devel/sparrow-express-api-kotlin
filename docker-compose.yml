@@ -22,3 +22,6 @@ services:
       GOOGLE_CLIENT_SECRET: $GOOGLE_CLIENT_SECRET
       MAIL_USERNAME: $MAIL_USERNAME
       MAIL_PASSWORD: $MAIL_PASSWORD
+    volumes:
+      - ${SERVER_CERT_PATH}:/etc/letsencrypt/live/api.sparrow.express/fullchain.pem
+      - ${SERVER_KEY_PATH}:/etc/letsencrypt/live/api.sparrow.express/privkey.pem
