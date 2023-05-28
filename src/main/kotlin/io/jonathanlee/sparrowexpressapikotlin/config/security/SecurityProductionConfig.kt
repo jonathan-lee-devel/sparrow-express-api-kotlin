@@ -54,12 +54,12 @@ class SecurityProductionConfig(
             .and()
             .oauth2Login { httpSecurityOAuth2LoginConfigurer: OAuth2LoginConfigurer<HttpSecurity?> ->
                 httpSecurityOAuth2LoginConfigurer.defaultSuccessUrl(
-                    "http://localhost:4200/login-success",
+                    "$frontEndHost/login-success",
                     true
                 )
             }
             .logout { httpSecurityLogoutConfigurer: LogoutConfigurer<HttpSecurity?> ->
-                httpSecurityLogoutConfigurer.logoutSuccessUrl("http://localhost:4200/logout-success")
+                httpSecurityLogoutConfigurer.logoutSuccessUrl("$frontEndHost/logout-success")
                 httpSecurityLogoutConfigurer.logoutSuccessHandler(
                     oidcClientInitiatedLogoutSuccessHandler()
                 )
@@ -117,7 +117,7 @@ class SecurityProductionConfig(
         val successHandler = OidcClientInitiatedLogoutSuccessHandler(
             clientRegistrationRepository
         )
-        successHandler.setPostLogoutRedirectUri("http://localhost:42000/logout-success")
+        successHandler.setPostLogoutRedirectUri("$frontEndHost/logout-success")
         return successHandler
     }
 
