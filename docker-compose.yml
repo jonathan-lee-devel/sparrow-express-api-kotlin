@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  client:
+    image: jonathanleedev/sparrow-express-api-kotlin-proxy:latest
+    ports:
+      - '443:443'
+    volumes:
+      - ${SERVER_CERT_PATH}:/etc/nginx/server.crt
+      - ${SERVER_KEY_PATH}:/etc/nginx/server.key
+  api:
+    image: jonathanleedev/sparrow-express-api-kotlin:latest
+    ports:
+      - '8080:8080'
