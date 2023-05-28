@@ -23,13 +23,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 @EnableWebSecurity
-@Profile("production")
-class SecurityProductionConfig(
+@Profile("google-login")
+class SecurityGoogleLoginConfig(
     private val clientRegistrationRepository: ClientRegistrationRepository
 ) {
 
     @Value("\${sparrow.environment.frontEndHost}")
     private lateinit var frontEndHost: String
+
+    @Value("\${sparrow.environment.googleLoginHost}")
+    private lateinit var googleLoginHost: String
 
     @Bean
     @Throws(Exception::class)
@@ -75,7 +78,7 @@ class SecurityProductionConfig(
 
     @Bean
     fun corsConfigurer(): WebMvcConfigurer {
-        val allowedDomains = arrayOf(frontEndHost)
+        val allowedDomains = arrayOf(frontEndHost, googleLoginHost)
         return object : WebMvcConfigurer {
             override fun addCorsMappings(@NonNull registry: CorsRegistry) {
                 registry.addMapping("/**").allowedOrigins(*allowedDomains)
@@ -87,7 +90,7 @@ class SecurityProductionConfig(
         val corsConfiguration = CorsConfiguration()
         corsConfiguration.allowCredentials = true
         corsConfiguration.allowedOrigins =
-            listOf(frontEndHost)
+            listOf(frontEndHost, googleLoginHost)
         corsConfiguration.allowedHeaders = listOf(
             "Origin",
             "Access-Control-Allow-Origin",
